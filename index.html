@@ -488,7 +488,17 @@
     dataVar: 'json_bus_stop_2',
     layerName: 'layer_bus_stop_2',
     pane: 'pane_bus_stop_2',
-    onEachFeature: pop_bus_stop_2,
+    onEachFeature: function (feature, layer) {
+        // ポップアップの内容を作成
+        var popupContent = `
+            <div style="text-align: center;">
+                <h3>${feature.properties.ID}</h3> <!-- 系統番号 -->
+                <img src="img/tagedphoto/${feature.properties.ID}.jpg" alt="Bus Stop ${feature.properties.ID}" 
+                     style="width: 100%; height: auto; max-width: 600px; border: 1px solid #ccc;" />
+            </div>
+        `;
+        layer.bindPopup(popupContent, { maxHeight: 400 }); // ポップアップをバインド
+    },
     pointToLayer: function (feature, latlng) {
         // カスタムアイコンを適用
         var customIcon = L.icon({
@@ -500,6 +510,7 @@
         return L.marker(latlng, { icon: customIcon });
     },
 });
+
 bounds_group.addLayer(layer_bus_stop_2);
 map.addLayer(layer_bus_stop_2);
 
