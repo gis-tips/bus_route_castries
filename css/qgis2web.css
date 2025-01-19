@@ -33,7 +33,7 @@
         }
         .leaflet-popup-content{
             
-            height: auto;               /* コンテンツに合わせた横幅 */
+            width: auto;               /* コンテンツに合わせた横幅 */
             text-align: center;        /* コンテンツの中央揃え */
             font-size: 200%; /* フォントサイズを2倍に変更 */
             

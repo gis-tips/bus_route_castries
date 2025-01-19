@@ -41,6 +41,8 @@
         <script src="js/leaflet-search.js"></script>
         <script src="data/castries_busroute_1.js"></script>
         <script src="data/bus_stop_2.js"></script>
+        <script src="data/1A_detour_4.js"></script>
+        <script src="data/1Astop_3.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -145,6 +147,10 @@
 			});
 			layer.bindPopup(content, { maxHeight: 400 });
         }
+
+
+
+
 
         function style_castries_busroute_1_0(feature) {
             switch(String(feature.properties['Name'])) {
@@ -529,6 +535,11 @@ map.addLayer(layer_bus_stop_2);
         var overlaysTree = [
             {label: '<img src="legend/bus_stop_2.png" /> bus_stop', layer: layer_bus_stop_2},
             {label: 'castries_busroute<br /><table><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1A0.png" /></td><td>1A</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1B1.png" /></td><td>1B</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1D2.png" /></td><td>1D</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1E3.png" /></td><td>1E</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1F4.png" /></td><td>1F</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_2A5.png" /></td><td>2A</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_2B6.png" /></td><td>2B</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_2C7.png" /></td><td>2C</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_2H8.png" /></td><td>2H</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3A9.png" /></td><td>3A</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3B10.png" /></td><td>3B</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3C11.png" /></td><td>3C</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3D12.png" /></td><td>3D</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3E13.png" /></td><td>3E</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3F14.png" /></td><td>3F</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5A15.png" /></td><td>5A</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5B16.png" /></td><td>5B</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5C17.png" /></td><td>5C</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5D18.png" /></td><td>5D</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5E19.png" /></td><td>5E</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5F20.png" /></td><td>5F</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_21.png" /></td><td></td></tr></table>', layer: layer_castries_busroute_1},
+            {label: '<img src="legend/1A_detour_4.png" /> 1A Detour', layer: layer_1A_detour_4 },
+            {label: '<img src="legend/1Astop_3.png" />   1A Stops', layer: layer_1Astop_3 },
+
+
+
             {label: "OpenStreetMap", layer: layer_OpenStreetMap_0, radioGroup: 'bm' },]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
@@ -571,6 +582,98 @@ map.addLayer(layer_bus_stop_2);
         map.on("layerremove", function(){
             resetLabels([layer_castries_busroute_1]);
         });
+
+
+function style_1A_detour_4(feature) {
+    return {
+        pane: 'pane_castries_busroute_1',
+        opacity: 1,
+        color: 'rgba(220,191,27,1.0)', // Same color as 1A
+        dashArray: '5, 5', // Dashed line
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    };
+}
+
+var layer_1A_detour_4 = new L.geoJson(json_1A_detour_4, {
+    attribution: '',
+    interactive: true,
+    dataVar: 'json_1A_detour_4',
+    layerName: 'layer_1A_detour_4',
+    pane: 'pane_castries_busroute_1',
+    style: style_1A_detour_4,
+});
+bounds_group.addLayer(layer_1A_detour_4);
+map.addLayer(layer_1A_detour_4);
+
+function pop_1Astop_3(feature, layer) {
+    var popupContent = '<table>\
+            <tr>\
+                <td><strong>Bus Stop:</strong></td>\
+                <td>' + (feature.properties['Bus stop'] || 'N/A') + '</td>\
+            </tr>\
+        </table>';
+    layer.bindPopup(popupContent, { maxHeight: 400 });
+}
+
+var layer_1Astop_3 = new L.geoJson(json_1Astop_3, {
+    attribution: '',
+    interactive: true,
+    dataVar: 'json_1Astop_3',
+    layerName: 'layer_1Astop_3',
+    pane: 'pane_bus_stop_2',
+    onEachFeature: pop_1Astop_3,
+    pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, {
+            radius: 15,
+            fillColor: 'rgba(220,191,27,1.0)', // Same color as 1A
+            color: 'rgba(0,0,0,1.0)',
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.8,
+        });
+    },
+});
+bounds_group.addLayer(layer_1Astop_3);
+map.addLayer(layer_1Astop_3);
+// --- 1A_detour_4.js のポップアップとスタイルの設定 ---
+function pop_1A_detour_4(feature, layer) {
+    var popupContent = '<div>1A detour route</div>';
+    layer.bindPopup(popupContent, { maxHeight: 400 });
+}
+
+function style_1A_detour_4(feature) {
+    return {
+        pane: 'pane_castries_busroute_1',
+        opacity: 1,
+        color: 'rgba(220,191,27,1.0)', // Same color as 1A
+        dashArray: '5, 5', // Dashed line
+        lineCap: 'square',
+        lineJoin: 'bevel',
+        weight: 3.0,
+        fillOpacity: 0,
+        interactive: true,
+    };
+}
+
+var layer_1A_detour_4 = new L.geoJson(json_1A_detour_4, {
+    attribution: '',
+    interactive: true,
+    dataVar: 'json_1A_detour_4',
+    layerName: 'layer_1A_detour_4',
+    pane: 'pane_castries_busroute_1',
+    style: style_1A_detour_4,
+    onEachFeature: pop_1A_detour_4, // ポップアップ設定
+});
+bounds_group.addLayer(layer_1A_detour_4);
+map.addLayer(layer_1A_detour_4);
+
+// --- 1A_detour_4 レイヤをレイヤコントロールに追加 ---
+overlaysTree.push({ label: '1A Detour (Dashed Line)', layer: layer_1A_detour_4 });
+
         </script>
     </body>
 </html>
