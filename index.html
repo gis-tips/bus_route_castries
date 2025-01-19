@@ -491,13 +491,15 @@
     onEachFeature: function (feature, layer) {
         // ポップアップの内容を作成
         var popupContent = `
-            <div style="text-align: center;">
-                <h3>${feature.properties.ID}</h3> <!-- 系統番号 -->
+            <div style="text-align: center; display: block; max-width: 100%; width: auto;">
+                <h3>${feature.properties.ID}</h3>
                 <img src="img/tagedphoto/${feature.properties.ID}.jpg" alt="Bus Stop ${feature.properties.ID}" 
-                     style="width: 100%; height: auto; max-width: 600px; border: 1px solid #ccc;" />
+                    style="width: 600%; height: auto; max-width: 2800px; border: 1px solid #ccc;" />
             </div>
         `;
-        layer.bindPopup(popupContent, { maxHeight: 400 }); // ポップアップをバインド
+
+        layer.bindPopup(popupContent, { maxWidth: 1200, maxHeight: 800 });
+
     },
     pointToLayer: function (feature, latlng) {
         // カスタムアイコンを適用

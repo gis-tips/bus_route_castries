@@ -32,8 +32,11 @@
             border-top: unset!important;
         }
         .leaflet-popup-content{
-            max-height: 70vh;
-            max-width: 70vw;
+            
+            height: auto;               /* コンテンツに合わせた横幅 */
+            text-align: center;        /* コンテンツの中央揃え */
+            font-size: 200%; /* フォントサイズを2倍に変更 */
+            
         }
         .leaflet-popup-content.media{
             width: auto!important;
@@ -48,8 +51,8 @@
             min-width: 75px;
         }
         .leaflet-popup-content td img {
-            max-height: 60vh;
-            max-width: 60vw;
+            max-height: 60vh !important;
+            max-width: 180vw !important;
         }
 
         .leaflet-tooltip {
