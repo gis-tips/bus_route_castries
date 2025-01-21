@@ -536,11 +536,11 @@ var layer_bus_stop_2 = new L.geoJson(json_bus_stop_2, {
             <div style="text-align: center; display: block; max-width: 100%; width: auto;">
                 <h3>${feature.properties.Destination}</h3>
                 <img src="img/tagedphoto/${feature.properties.ID}.jpg" alt="Bus Stop ${feature.properties.Destination}" 
-                    style="width: 300%; height: auto; max-width: 1200px; border: 1px solid #ccc;" />
+                    style="width: 300%; height: auto; max-width: 300px; border: 1px solid #ccc;" />
             </div>
         `;
 
-        layer.bindPopup(popupContent, { maxWidth: 1200, maxHeight: 800 });
+        layer.bindPopup(popupContent, { maxWidth: 600, maxHeight: 800 });
     },
     pointToLayer: function (feature, latlng) {
         // カスタムアイコンを適用
