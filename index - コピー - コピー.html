@@ -26,6 +26,23 @@
     <body>
         <div id="map">
         </div>
+        <!-- Bus Fare ボタンの追加 -->
+        <div id="bus-fare-link" style="position: absolute; bottom: 10px; left: 10px; z-index: 1000;">
+            <a href="https://github.com/gis-tips/bus_route_castries/blob/main/Bus_fare.pdf" target="_blank" style="
+                display: inline-block;
+                background-color: white;
+                color: blue;
+                text-decoration: none;
+                padding: 10px 15px;
+                border-radius: 5px;
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                font-weight: bold;
+            ">Bus Fare</a>
+        </div>
+
+        <script src="js/leaflet.js"></script>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
@@ -507,7 +524,7 @@ function pop_bus_stop_2(feature, layer) {
         map.createPane('pane_bus_stop_2');
         map.getPane('pane_bus_stop_2').style.zIndex = 402;
         map.getPane('pane_bus_stop_2').style['mix-blend-mode'] = 'normal';
-        var layer_bus_stop_2 = new L.geoJson(json_bus_stop_2, {
+var layer_bus_stop_2 = new L.geoJson(json_bus_stop_2, {
     attribution: '',
     interactive: true,
     dataVar: 'json_bus_stop_2',
@@ -517,14 +534,13 @@ function pop_bus_stop_2(feature, layer) {
         // ポップアップの内容を作成
         var popupContent = `
             <div style="text-align: center; display: block; max-width: 100%; width: auto;">
-                <h3>${feature.properties.ID}</h3>
-                <img src="img/tagedphoto/${feature.properties.ID}.jpg" alt="Bus Stop ${feature.properties.ID}" 
-                    style="width: 600%; height: auto; max-width: 2800px; border: 1px solid #ccc;" />
+                <h3>${feature.properties.Destination}</h3>
+                <img src="img/tagedphoto/${feature.properties.ID}.jpg" alt="Bus Stop ${feature.properties.Destination}" 
+                    style="width: 300%; height: auto; max-width: 300px; border: 1px solid #ccc;" />
             </div>
         `;
 
-        layer.bindPopup(popupContent, { maxWidth: 1200, maxHeight: 800 });
-
+        layer.bindPopup(popupContent, { maxWidth: 600, maxHeight: 800 });
     },
     pointToLayer: function (feature, latlng) {
         // カスタムアイコンを適用
