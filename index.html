@@ -10,7 +10,6 @@
         <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/leaflet-search.css">
         <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
@@ -56,7 +55,6 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
         <script src="js/leaflet-measure.js"></script>
-        <script src="js/leaflet-search.js"></script>
         <script src="data/castries_busroute_1.js"></script>
         <script src="data/bus_stop_2.js"></script>
         <script src="data/1A_detour_4.js"></script>
@@ -114,6 +112,16 @@
         var zoomControl = L.control.zoom({
             position: 'topleft'
         }).addTo(map);
+// 現在地表示機能の追加
+	var locateControl = L.control.locate({
+    	position: 'topleft',
+    	strings: {
+        title: "current location"
+    	},
+    	drawCircle: true,
+    	keepCurrentZoomLevel: true,
+    	initialZoomLevel: false
+	}).addTo(map);
         var measureControl = new L.Control.Measure({
             position: 'topleft',
             primaryLengthUnit: 'meters',
@@ -569,14 +577,11 @@ map.addLayer(layer_bus_stop_2);
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
         .title += 'Search for a place';
         var overlaysTree = [
-            {label: '<img src="legend/bus_stop_2.png" /> bus_stop', layer: layer_bus_stop_2},
-            {label: 'castries_busroute<br /><table><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1A0.png" /></td><td>1A</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1B1.png" /></td><td>1B</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1D2.png" /></td><td>1D</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1E3.png" /></td><td>1E</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1F4.png" /></td><td>1F</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_2A5.png" /></td><td>2A</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_2B6.png" /></td><td>2B</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_2C7.png" /></td><td>2C</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_2H8.png" /></td><td>2H</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3A9.png" /></td><td>3A</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3B10.png" /></td><td>3B</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3C11.png" /></td><td>3C</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3D12.png" /></td><td>3D</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3E13.png" /></td><td>3E</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3F14.png" /></td><td>3F</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5A15.png" /></td><td>5A</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5B16.png" /></td><td>5B</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5C17.png" /></td><td>5C</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5D18.png" /></td><td>5D</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5E19.png" /></td><td>5E</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5F20.png" /></td><td>5F</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_21.png" /></td><td></td></tr></table>', layer: layer_castries_busroute_1},
+            {label: '<img src="img/icons/1A.png" style="width:16px; height:16px;" /> castries busstop', layer: layer_bus_stop_2},
+            {label: 'castries_busroute<br /><table><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1A0.png" /></td><td>1A</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1B1.png" /></td><td>1B</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1D2.png" /></td><td>1D</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1E3.png" /></td><td>1E</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_1F4.png" /></td><td>1F</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_2A5.png" /></td><td>2A</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_2B6.png" /></td><td>2B</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_2C7.png" /></td><td>2C</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_2H8.png" /></td><td>2H</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3A9.png" /></td><td>3A</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3B10.png" /></td><td>3B</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3C11.png" /></td><td>3C</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3D12.png" /></td><td>3D</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3E13.png" /></td><td>3E</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_3F14.png" /></td><td>3F</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5A15.png" /></td><td>5A</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5B16.png" /></td><td>5B</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5C17.png" /></td><td>5C</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5D18.png" /></td><td>5D</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5E19.png" /></td><td>5E</td></tr><tr><td style="text-align: center;"><img src="legend/castries_busroute_1_5F20.png" /></td><td>5F</td></tr></table>', layer: layer_castries_busroute_1},
             {label: '<img src="legend/1A_detour_4.png" /> 1A Detour', layer: layer_1A_detour_4 },
             {label: '<img src="legend/1Astop_3.png" />   1A Stops', layer: layer_1Astop_3 },
-
-
-
-            {label: "OpenStreetMap", layer: layer_OpenStreetMap_0, radioGroup: 'bm' },]
+]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
             //selectorBack: false,
@@ -601,13 +606,6 @@ map.addLayer(layer_bus_stop_2);
               addLabel(layer, i);
               i++;
         });
-        map.addControl(new L.Control.Search({
-            layer: layer_bus_stop_2,
-            initial: false,
-            hideMarkerOnCollapse: true,
-            propertyName: 'ID'}));
-        document.getElementsByClassName('search-button')[0].className +=
-         ' fa fa-binoculars';
         resetLabels([layer_castries_busroute_1]);
         map.on("zoomend", function(){
             resetLabels([layer_castries_busroute_1]);
